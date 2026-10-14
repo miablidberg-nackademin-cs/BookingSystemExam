@@ -108,11 +108,8 @@ public class BookingConsole(BookingService service)
 
         IReadOnlyList<Booking> activeBookings = [.. from booking in bookings
                                                     where booking.IsCancelled == false
+                                                    orderby booking.Date, booking.StartTime
                                                     select booking];
-
-        activeBookings = [.. activeBookings
-            .OrderBy(booking => booking.Date)
-            .ThenBy(booking => booking.StartTime)];
 
         foreach (var booking in activeBookings)
         {
