@@ -68,8 +68,7 @@ public class BookingConsole(BookingService service)
         var startTime = ReadTime("Start time (HH:mm): ");
         var endTime = ReadTime("End time (HH:mm): ");
 
-        Console.Write("Participants: ");
-        var participants = int.Parse(Console.ReadLine() ?? string.Empty);
+        var participants = ReadParticipants("Participants: ");
 
         var booking = new Booking
         {
@@ -155,6 +154,21 @@ public class BookingConsole(BookingService service)
             }
 
             Console.WriteLine("Enter the time using HH:mm.");
+        }
+    }
+
+    private int ReadParticipants(string promt)
+    {
+        while (true)
+        {
+            Console.Write(promt);
+
+            if (int.TryParse(Console.ReadLine(), out int numberOfParticipants))
+            {
+                return numberOfParticipants;
+            }
+
+            Console.WriteLine("Enter the number of participants with an integer.");
         }
     }
 }

@@ -51,8 +51,7 @@ public class BookingService(IBookingRepository repository)
 
     public BookingResult Cancel(int bookingId)
     {
-        Booking? booking = repository.GetAll().FirstOrDefault(existing =>
-        existing.Id == bookingId);
+        Booking? booking = repository.GetAll().FirstOrDefault(existing => existing.Id == bookingId);
 
         if (booking is null)
         {
