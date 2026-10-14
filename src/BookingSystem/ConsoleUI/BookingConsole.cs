@@ -106,7 +106,15 @@ public class BookingConsole(BookingService service)
             return;
         }
 
-        foreach (var booking in bookings)
+        IReadOnlyList<Booking> activeBookings = [.. from booking in bookings
+                                                    where booking.IsCancelled == false
+                                                    select booking];
+
+        activeBookings = [.. activeBookings
+            .OrderBy(booking => booking.Date)
+            .ThenBy(booking => booking.StartTime)];
+
+        foreach (var booking in activeBookings)
         {
             Console.WriteLine();
             Console.WriteLine($"Booking {booking.Id}");
