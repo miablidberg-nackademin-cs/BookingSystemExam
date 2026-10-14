@@ -157,13 +157,13 @@ public class BookingConsole(BookingService service)
         }
     }
 
-    private int ReadParticipants(string promt)
+    private static int ReadParticipants(string promt)
     {
         while (true)
         {
             Console.Write(promt);
 
-            if (int.TryParse(Console.ReadLine(), out int numberOfParticipants))
+            if (int.TryParse(Console.ReadLine()!.Trim(), out int numberOfParticipants))
             {
                 return numberOfParticipants;
             }
