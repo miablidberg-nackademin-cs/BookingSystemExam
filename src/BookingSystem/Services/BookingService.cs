@@ -24,7 +24,7 @@ public class BookingService(IBookingRepository repository)
         return repository.GetAll()
             .Where(booking =>
                 !booking.IsCancelled &&
-                booking.CustomerName.Contains(searchTerm))
+                booking.CustomerName.ToLower().Contains(searchTerm.ToLower()))
             .ToList();
     }
 
