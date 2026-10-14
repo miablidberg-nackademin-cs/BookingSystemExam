@@ -15,8 +15,13 @@ public class BookingService(IBookingRepository repository)
 
     public IReadOnlyList<Booking> GetActiveBookings()
     {
-        // This method has not been completed.
-        return repository.GetAll();
+        IReadOnlyList<Booking> bookings = repository.GetAll();
+
+        IReadOnlyList<Booking> activeBookings = [.. from booking in bookings
+                                                    where booking.IsCancelled == false
+                                                    orderby booking.Date, booking.StartTime
+                                                    select booking];
+        return activeBookings;
     }
 
     public IReadOnlyList<Booking> Search(string searchTerm)
@@ -46,7 +51,7 @@ public class BookingService(IBookingRepository repository)
 
     public BookingResult Cancel(int bookingId)
     {
-        throw new NotImplementedException();
+        
     }
 
     private BookingResult Validate(Booking booking)
